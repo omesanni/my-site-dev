@@ -10,7 +10,7 @@ import classnames from 'classnames';
 const ButtonBase = (props) => {
   function handleClick(e) {
     e.preventDefault();
-    return props.onClick(e);
+    return props.onClick && props.onClick(e);
   }
 
   const customProps = {
