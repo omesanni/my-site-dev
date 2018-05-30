@@ -42,9 +42,10 @@ module.exports = {
       },
       {
         test: /\.sass$/,
-        use: DEBUG ? sassLoaders : ExtractTextPlugin.extract(
-          sassLoaders.filter(f => (f !== 'style-loader'))
-        ),
+        use: DEBUG ? sassLoaders : ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: sassLoaders.filter(f => (f !== 'style-loader'))
+        }),
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
