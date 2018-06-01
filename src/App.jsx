@@ -1,7 +1,7 @@
 import React from 'react';
 import { isEqual } from 'lodash';
 import { NAV_ITEMS } from './constants';
-import { goToSection } from './utils/lib';
+import { goToSection, getScrollPosition } from './utils/lib';
 import Header from './components/Header';
 import Intro from './components/Intro';
 
@@ -47,18 +47,18 @@ class App extends React.Component {
    */
   handleWindowScroll() {
     const { sections } = this.state;
-    const { scrollTop } = document.documentElement;
+    const scrollTop = getScrollPosition();
 
     let { hash } = this.state;
 
     // change hash as user scrolls through sections
     sections.forEach((section) => {
       const { offsetTop, clientHeight } = section;
-      const verticalOffset = window.pageYOffset + 10;
+      const windowScrollOffset = scrollTop + 10;
 
       if (
-        offsetTop < verticalOffset &&
-        offsetTop + clientHeight > verticalOffset
+        offsetTop < windowScrollOffset &&
+        offsetTop + clientHeight > windowScrollOffset
       ) {
         hash = section.hash;
       }

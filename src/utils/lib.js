@@ -1,4 +1,16 @@
 /**
+ * Get scroll position of window
+ * @return {Number} position
+ */
+export function getScrollPosition() {
+  return Math.max(
+    window.pageYOffset,
+    document.documentElement.scrollTop,
+    document.body.scrollTop,
+  );
+}
+
+/**
  * Scroll to a particular element
  * @param  {String}   elemID               ID of HTML element
  * @param  {Number}   duration             Duration of scroll transition in millisecond
@@ -7,7 +19,7 @@
 export function scrollToElement(elemID, duration, onTransitionComplete) {
   const elem = document.getElementById(elemID);
   const destPos = elem.offsetTop;
-  const start = document.documentElement.scrollTop;
+  const start = getScrollPosition();
 
   let count = 0, currPos;
 
@@ -18,7 +30,8 @@ export function scrollToElement(elemID, duration, onTransitionComplete) {
     if (currPos !== destPos) {
       count = count + 1;
       currPos = start + diff * (0.5 - 0.5 * Math.cos(count * scrollStep));
-      document.documentElement.scrollTop = currPos;
+
+      window.scrollTo(currPos, currPos);
     } else {
       clearInterval(scrollInterval);
 
@@ -26,7 +39,7 @@ export function scrollToElement(elemID, duration, onTransitionComplete) {
         return onTransitionComplete();
       }
     }
-  }, 17);
+  }, 10);
 }
 
 /**
