@@ -47,24 +47,24 @@ class App extends React.Component {
    */
   handleWindowScroll() {
     const { sections } = this.state;
-    const scrollTop = getScrollPosition();
+    const headerHeight = document.getElementsByClassName('header')[0].offsetHeight;
 
     let { hash } = this.state;
 
     // change hash as user scrolls through sections
     sections.forEach((section) => {
-      const { offsetTop, clientHeight } = section;
-      const windowScrollOffset = scrollTop + 10;
+      const { offsetTop, offsetHeight } = section;
+      const windowScrollTop = getScrollPosition();
 
-      if (
-        offsetTop < windowScrollOffset &&
-        offsetTop + clientHeight > windowScrollOffset
-      ) {
+      const top = offsetTop - headerHeight;
+      const bottom = top + offsetHeight;
+
+      if (windowScrollTop >= top && windowScrollTop <= bottom) {
         hash = section.hash;
       }
     });
 
-    this.setState(() => ({ hash, boldenHeader: scrollTop > 70 }));
+    this.setState(() => ({ hash, boldenHeader: getScrollPosition() > 70 }));
   }
 
   /**
@@ -75,9 +75,9 @@ class App extends React.Component {
     const sections = [];
 
     NAV_ITEMS.slice(0, 2).forEach((item) => {
-      const { offsetTop, clientHeight } = document.getElementById(item.href.replace('#', ''));
+      const { offsetTop, offsetHeight } = document.getElementById(item.href.replace('#', ''));
 
-      sections.push({ offsetTop, clientHeight, hash: item.href });
+      sections.push({ offsetTop, offsetHeight, hash: item.href });
     });
 
     this.setState(() => ({ sections }));
