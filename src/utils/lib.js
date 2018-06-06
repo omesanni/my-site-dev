@@ -48,7 +48,7 @@ export function scrollToElement(elemID, duration, onTransitionComplete) {
  * @param  {String} hash     Url hash e.g. #about
  * @param  {Number} duration Duration of transition
  */
-export function goToSection(evt, hash, duration = 400) {
+export function goToSection(evt, hash, duration = 300) {
   scrollToElement(hash.replace('#', ''), duration, () => {
     window.location.hash = hash;
   });

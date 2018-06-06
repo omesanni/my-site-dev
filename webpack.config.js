@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 const ENV = process.env.NODE_ENV || 'development';
 const DEBUG = ENV !== 'production';
@@ -10,6 +11,7 @@ const devEntries = ['react-hot-loader/patch', 'webpack-hot-middleware/client'];
 const sassLoaders = ['style-loader', 'css-loader', 'sass-loader'];
 
 const plugins = [
+  new LodashModuleReplacementPlugin(),
   new CopyWebpackPlugin([
     { from: 'assets/images/**', to: '.', context: './src' },
   ]),

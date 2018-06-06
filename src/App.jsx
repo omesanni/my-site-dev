@@ -1,5 +1,5 @@
 import React from 'react';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 import { NAV_ITEMS } from './constants';
 import { goToSection, getScrollPosition } from './utils/lib';
 import Header from './components/Header';
@@ -23,6 +23,7 @@ class App extends React.Component {
   componentDidMount() {
     window.addEventListener('scroll', this.handleWindowScroll, false);
     window.addEventListener('hashchange', this.handleHashChange, false);
+
     this.storeSectionPositions();
   }
 
