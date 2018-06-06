@@ -7,6 +7,7 @@ const Header = (props) => {
 
   return (
     <header
+      id={props.id}
       className={classnames('header', {
         'header--boldened': boldenHeader,
       })}
@@ -30,6 +31,7 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
+  id: PropTypes.string.isRequired,
   activeItem: PropTypes.string,
   boldenHeader: PropTypes.bool,
   navItems: PropTypes.arrayOf(PropTypes.shape({

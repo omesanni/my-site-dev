@@ -48,7 +48,7 @@ class App extends React.Component {
    */
   handleWindowScroll() {
     const { sections } = this.state;
-    const headerHeight = document.getElementsByClassName('header')[0].offsetHeight;
+    const { offsetHeight: headerHeight } = document.getElementById('header');
 
     let { hash } = this.state;
 
@@ -90,6 +90,7 @@ class App extends React.Component {
     return (
       <div className={'main-container'}>
         <Header
+          id={'header'}
           activeItem={hash}
           boldenHeader={boldenHeader}
           navItems={NAV_ITEMS.map(item => ({
